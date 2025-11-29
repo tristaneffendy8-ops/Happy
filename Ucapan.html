@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy 17th Birthday!</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+        font-family: 'Press Start 2P', cursive;
+        background: linear-gradient(135deg, #ffc1e3 0%, #ffb6c1 100%);
+        min-height: 100vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        padding:20px;
+        overflow-x:hidden;
+    }
+
+    .container { perspective: 1500px; width: 100%; max-width: 600px; }
+
+    .paper {
+        width: 100%;
+        height: 450px;
+        position: relative;
+        transform-style: preserve-3d;
+        cursor: pointer;
+        transition: transform 0.8s cubic-bezier(0.4,0,0.2,1);
+        margin: 0 auto;
+    }
+
+    .paper.unfolded { transform: rotateY(180deg); }
+
+    .paper-side {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 40px;
+        text-align: center;
+        margin: 0;
+    }
+
+    .front {
+        background: linear-gradient(135deg, #ffe4ec 0%, #ffb6c1 100%);
+        border: 3px solid #ff69b4;
+    }
+
+    .front img {
+        width: 100px;
+        margin-bottom: 10px;
+    }
+
+    .back {
+        background: linear-gradient(135deg, #fff0f5 0%, #ffc0cb 100%);
+        transform: rotateY(180deg);
+        border: 3px solid #ff1493;
+    }
+
+    .back img {
+        width: 120px;
+        margin-bottom: 15px;
+    }
+
+    .fold-line {
+        position: absolute;
+        top:0; left:50%;
+        width:2px; height:100%;
+        background: rgba(0,0,0,0.05);
+        transform: translateX(-50%);
+    }
+
+    h1 {
+        font-size: 1.5em;
+        color: #c71585;
+        margin-bottom: 10px;
+    }
+
+    .instruction {
+        font-size: 0.8em;
+        color: #ff1493;
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.5;} }
+
+    .message {
+        font-size: 0.7em;
+        line-height: 1.6;
+        color: #800040;
+        margin: 15px 0;
+    }
+
+    .highlight { color: #ff1493; font-weight: bold; }
+
+    .hearts { font-size: 1.2em; margin: 10px 0; animation: float 3s ease-in-out infinite; }
+    @keyframes float { 0%,100%{transform: translateY(0);} 50%{transform: translateY(-8px);} }
+
+    .confetti {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #ff6b9d;
+        animation: fall 3s linear infinite;
+    }
+
+    @keyframes fall { to { transform: translateY(100vh) rotate(360deg); } }
+
+    .tap-icon { font-size: 2em; margin-bottom: 10px; animation: tap 1.5s ease-in-out infinite; }
+    @keyframes tap { 0%,100%{transform:scale(1);} 50%{transform:scale(1.2);} }
+
+    @media (max-width:600px){
+        h1 { font-size:1.2em; }
+        .paper { height: 500px; }
+        .paper-side { padding: 25px; }
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="paper" id="paper">
+        <!-- Front Side -->
+        <div class="paper-side front">
+        <a href="https://imgbb.com/"><img src="https://i.ibb.co.com/dzTKLBz/Kelinci-Mohon.png" alt="Kelinci-Mohon" border="0"></a>
+            <div class="tap-icon">👆</div>
+            <h1>Pencet dong ada sesuatu untuk Deswie...</h1>
+            <div class="hearts">💝</div>
+            <p class="instruction">Klik untuk membuka!</p>
+        </div>
+        <!-- Back Side -->
+        <div class="paper-side back">
+       <a href="https://imgbb.com/"><img src="https://i.ibb.co.com/xKgy4gBV/Kelinci-Kue.png" alt="Kelinci-Kue" border="0"></a>
+            <h1>Happy Sweet Seventeen Deswie! 🎉</h1>
+            <div class="hearts">❤️ 💕 💖</div>
+            <div class="message">
+                Selamat ulang tahun yang ke-17, sayangku! 🎂<br><br>
+                Di usiamu yang <span class="highlight">17 tahun</span> ini, aku berharap apa yang kamu harapkan tahun ini menjadi kenyataan.<br><br>
+                Terima kasih sudah kuat sampai detik ini. Semoga tahun ini membawa lebih banyak kebahagiaan, kesuksesan, dan momen-momen indah untuk kamu dan orang yang kamu sayang.<br><br>
+                <span class="highlight">I love you so much! 💕</span>
+            </div>
+            <div class="hearts">🎈 🎁 🎊</div>
+        </div>
+        <div class="fold-line"></div>
+    </div>
+</div>
+
+<script>
+    const paper = document.getElementById('paper');
+    let isUnfolded = false;
+
+    paper.addEventListener('click', function(){
+        isUnfolded = !isUnfolded;
+        if(isUnfolded){
+            paper.classList.add('unfolded');
+            createConfetti();
+        }else{
+            paper.classList.remove('unfolded');
+        }
+    });
+
+    function createConfetti(){
+        const colors=['#ff6b9d','#ffd93d','#6bcf7f','#a78bfa','#fb923c'];
+        for(let i=0;i<50;i++){
+            setTimeout(()=>{
+                const confetti=document.createElement('div');
+                confetti.className='confetti';
+                confetti.style.left=Math.random()*100+'%';
+                confetti.style.background=colors[Math.floor(Math.random()*colors.length)];
+                confetti.style.animationDelay=Math.random()*3+'s';
+                confetti.style.animationDuration=(Math.random()*2+3)+'s';
+                document.body.appendChild(confetti);
+                setTimeout(()=>confetti.remove(),6000);
+            }, i*30);
+        }
+    }
+</script>
+</body>
+</html>
